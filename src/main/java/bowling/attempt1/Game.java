@@ -8,4 +8,8 @@ public class Game {
         return score;
     }
 
+    public void roll(int pins) {
+        score += pins;
+    }
+
 }
