@@ -26,21 +26,21 @@ public class Game {
     }
 
     private void countRoll(int pins, int extra_rolls) {
+        if (round == MAX_ROUNDS && usedExtraRolls < extra_rolls) {
+            usedExtraRolls++;
+            return;
+        }
         rolls++;
-        if (rolls > ROUND_ROLLS + extra_rolls) {
-            round++;
-            rolls = 1;
-            remaining_pins = 10 - pins;
-        } else if (remaining_pins - pins <= 0) {
+        if (remaining_pins - pins <= 0) {
             round++;
             rolls = 1;
             remaining_pins = 10;
         }
-        if (round == MAX_ROUNDS + 1 && usedExtraRolls < extra_rolls) {
-            round--;
-            usedExtraRolls++;
+        if (rolls > ROUND_ROLLS + extra_rolls) {
+            round++;
+            rolls = 1;
+            remaining_pins = 10 - pins;
         }
-
         if (round > MAX_ROUNDS){
             throw new IllegalStateException("This roll is not allowed");
         }
