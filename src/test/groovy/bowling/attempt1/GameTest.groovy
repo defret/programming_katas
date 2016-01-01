@@ -66,4 +66,16 @@ class GameTest extends Specification {
         then: game.score() == 120
     }
 
+    def "Too many extra rolls"() {
+        given:
+            bonuses.getExtraRolls() >> 2
+            bonuses.apply(_) >> 10
+            game.setBonuses(bonuses)
+        when:
+            13.times {
+                game.roll(max_pins)
+            }
+        then: thrown(IllegalStateException)
+
+    }
 }
