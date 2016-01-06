@@ -60,7 +60,7 @@ class GameTest extends Specification {
             bonuses.apply(_) >> 10
             game.setBonuses(bonuses)
         when:
-            12.times {
+            max_full_rolls.times {
                 game.roll(max_pins)
             }
         then: game.score() == 120
@@ -76,6 +76,6 @@ class GameTest extends Specification {
                 game.roll(max_pins)
             }
         then: thrown(IllegalStateException)
-
     }
+
 }

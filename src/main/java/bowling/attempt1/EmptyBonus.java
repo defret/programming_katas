@@ -6,6 +6,12 @@ public class EmptyBonus implements Bonuses {
         return score;
     }
 
+    public void reset() {
+    }
+
+    public void empty() {
+    }
+
     public int getExtraRolls() {
         return 0;
     }

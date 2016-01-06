@@ -20,25 +20,28 @@ public class Game {
     }
 
     public Game roll(int pins) {
+        int current_round = round;
         countRoll(pins, bonuses.getExtraRolls());
         score += bonuses.apply(pins);
+        if (current_round != round) {
+            bonuses.reset();
+        }
         return this;
     }
 
     private void countRoll(int pins, int extra_rolls) {
         if (round == MAX_ROUNDS && usedExtraRolls < extra_rolls) {
+            bonuses.empty();
             usedExtraRolls++;
             return;
         }
         rolls++;
-        if (remaining_pins - pins <= 0) {
+        if (remaining_pins - pins <= 0 || rolls > ROUND_ROLLS + extra_rolls) {
             round++;
             rolls = 1;
             remaining_pins = 10;
         }
         if (rolls > ROUND_ROLLS + extra_rolls) {
-            round++;
-            rolls = 1;
             remaining_pins = 10 - pins;
         }
         if (round > MAX_ROUNDS){
